@@ -14,6 +14,8 @@ const isSet = require('./validators').isSet;
 const isValidDate = require('./validators').isValidDate;
 const isValidPrice = require('./validators').isValidPrice;
 
+const fetchData = require('./fetchData');
+
 /**
  * Use D3 to map values to the (x, y) position on the ASCII line chart.
  * https://github.com/d3/d3-scale#linear-scales
@@ -45,7 +47,11 @@ app.get('/ascii', async(req, res) => {
 	try {
 		const queryObj = getValidatedQuery(req.query);
 
-		res.send(queryObj);
+		const data = await fetchData(queryObj);
+
+		console.log(data);
+
+		res.send(data);
 	} catch (e) {
 		res.send(e);
 	}

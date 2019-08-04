@@ -1,3 +1,4 @@
+require('isomorphic-fetch');
 const express = require('express');
 const portfinder = require('portfinder');
 const Redis = require('ioredis');

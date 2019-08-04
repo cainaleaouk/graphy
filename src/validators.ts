@@ -1,4 +1,4 @@
-function isSet(value) {
+export function isSet(value: string) {
 	return value !== undefined && value !== null;
 }
 
@@ -6,7 +6,7 @@ function isSet(value) {
  * @link https://stackoverflow.com/questions/6177975/how-to-validate-date-with-format-mm-dd-yyyy-in-javascript
  * Ripped the method for validating dates from here and changed for my own needs (for the sake of speed).
  */
-function isValidDate(dateString) {
+export function isValidDate(dateString: string) {
     // First check for the pattern
     if(!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(dateString))
         return false;
@@ -33,14 +33,22 @@ function isValidDate(dateString) {
     return day > 0 && day <= monthLength[month - 1];
 };
 
-const priceOptions = [`open`, `high`, `low`, `close`];
+const PRICE_OPTIONS = ['open', 'high', 'low', 'close'];
 
-function isValidPrice(price) {
-	return priceOptions.includes(price);
+export function isValidPrice(price: string) {
+	return PRICE_OPTIONS.includes(price);
 }
 
-module.exports = {
-    isSet,
-    isValidDate,
-    isValidPrice,
+export type QueryValidatorMap = {
+  symbol: typeof isSet;
+  since: typeof isValidDate;
+  until: typeof isValidDate;
+  price: typeof isValidPrice;
+};
+
+export const queryValidators: QueryValidatorMap = {
+  symbol: isSet,
+  since: isValidDate,
+  until: isValidDate,
+  price: isValidPrice,
 };

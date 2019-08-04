@@ -3,16 +3,16 @@ const PRICES_KEY = 'daily_prices';
 /**
 	Shows a simple graph with prices column, empty cell with '-', marked cell with 'x' and days as last row
 **/
-function getGraph(data, priceType) {
+export function getGraph(data: Record<string, any>, priceType: string) {
 	console.log('Get graph');
 
 	const pricesObj = data[PRICES_KEY];
 
-	const pricesByDate = {};
+	const pricesByDate: Record<string, string> = {};
 
-	const daysByPrice = {};
+	const daysByPrice: Record<string, string> = {};
 
-	let graphData = [];
+	let graphData: any = [];
 
 	Object.keys(pricesObj).forEach((date) => {
 		const dailyPrice = pricesObj[date][priceType];
@@ -28,7 +28,7 @@ function getGraph(data, priceType) {
 
 	for (let col = 0; col < prices.length; col++) {
 		const cPrice = Number(prices[col]).toFixed(2);
-		
+
 		graphData[col] = [cPrice];
 		for (let row = 0; row < dates.length; row++) {
 			if (dates[row] === daysByPrice[cPrice]) {
@@ -54,8 +54,6 @@ function getGraph(data, priceType) {
 	return graphData;
 }
 
-function getDay(date) {
+function getDay(date: string) {
 	return date.split('-')[2]
 }
-
-module.exports = getGraph;

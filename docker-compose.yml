@@ -35,7 +35,7 @@ services:
       - NODE_ENV=development
       - PORT=8000
     command:
-      sh -c 'cd /var/www/app && yarn && yarn internal:dev'
+      sh -c 'cd /var/www/app && yarn && yarn build && yarn internal:dev'
 
 volumes:
   portainer_data:

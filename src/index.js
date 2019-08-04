@@ -14,7 +14,8 @@ const stocksApi = require('./stocksApi').stocksApi;
 const withCache = require('./withCache').withCache;
 
 const retrieveData = withCache(stocksApi);
-// const retrieveData = stocksApi;
+
+const getGraph = require('./simpleGraph');
 
 /**
  * Use D3 to map values to the (x, y) position on the ASCII line chart.
@@ -28,10 +29,6 @@ const retrieveData = withCache(stocksApi);
  */
 
 // do your magic here 👇
-
-
-const PRICES_KEY = 'daily_prices';
-
  const queryValidators = {
  	symbol:isSet,
  	since:isValidDate,
@@ -49,9 +46,7 @@ app.get('/ascii', async(req, res) => {
 
 		const data = await retrieveData(queryObj);
 
-		console.log(data);
-
-		res.send(data);
+		res.send(getGraph(data, queryObj.price));
 	} catch (e) {
 		res.send(e);
 	}

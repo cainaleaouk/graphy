@@ -1,20 +1,20 @@
 require('isomorphic-fetch');
 const express = require('express');
 const portfinder = require('portfinder');
-const Redis = require('ioredis');
 const { scaleLinear } = require('d3-scale');
 
 // init express
 const app = express();
 
-// init redis; how to use: https://github.com/luin/ioredis#basic-usage
-const redis = new Redis(process.env.REDIS_URL);
-
 const isSet = require('./validators').isSet;
 const isValidDate = require('./validators').isValidDate;
 const isValidPrice = require('./validators').isValidPrice;
 
-const fetchData = require('./fetchData');
+const stocksApi = require('./stocksApi').stocksApi;
+const withCache = require('./withCache').withCache;
+
+const retrieveData = withCache(stocksApi);
+// const retrieveData = stocksApi;
 
 /**
  * Use D3 to map values to the (x, y) position on the ASCII line chart.
@@ -47,7 +47,7 @@ app.get('/ascii', async(req, res) => {
 	try {
 		const queryObj = getValidatedQuery(req.query);
 
-		const data = await fetchData(queryObj);
+		const data = await retrieveData(queryObj);
 
 		console.log(data);
 

@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint src/**/*.ts",
     "build": "rimraf dist/ && tsc",
+    "test": "jest",
     "start": "docker-compose up -d",
     "stop": "docker-compose down",
     "restart": "docker-compose restart",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@types/express": "^4.17.0",
     "@types/ioredis": "^4.0.13",
+    "@types/jest": "^24.0.16",
     "@types/node": "^12.6.9",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
@@ -29,10 +31,12 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "husky": "^3.0.2",
+    "jest": "^24.8.0",
     "lint-staged": "^9.2.1",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
     "typescript": "^3.5.3"
   },
   "nodemonConfig": {

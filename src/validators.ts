@@ -1,4 +1,7 @@
-export function isSet(value: string) {
+import { PriceTypes } from './types';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isSet(value: any) {
   return value !== undefined && value !== null;
 }
 
@@ -32,7 +35,7 @@ export function isValidDate(dateString: string) {
 
 const PRICE_OPTIONS = ['open', 'high', 'low', 'close'];
 
-export function isValidPrice(price: string) {
+export function isValidPrice(price: PriceTypes) {
   return PRICE_OPTIONS.includes(price);
 }
 

@@ -7,6 +7,7 @@ export enum PriceTypes {
 
 export class Query {
   [key: string]: string;
+
   public symbol!: string;
   public since!: string;
   public until!: string;

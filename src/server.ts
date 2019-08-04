@@ -43,6 +43,7 @@ function getValidatedQuery(query: Partial<Query>): Query {
     const validator = queryValidators[queryKey];
 
     // check if all the values passed in the params are valid
+    // @ts-ignore
     if (validator && !validator(queryValue)) {
       throw `Query value for (${queryKey}) is not in the correct format`;
     }

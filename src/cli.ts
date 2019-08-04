@@ -10,6 +10,11 @@ commander
 
 commander.parse(process.argv);
 
+if (process.argv.length < 5) {
+  commander.outputHelp();
+  process.exit(0);
+}
+
 const { symbol, since, until, price } = commander;
 
 if (!symbol) throw 'symbol parameter is missing!';

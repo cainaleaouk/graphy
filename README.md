@@ -1,17 +1,22 @@
-![Graphy Careers](https://graphy-static.ams3.cdn.digitaloceanspaces.com/careers-alt.png)
-
 # Graphy Backend Coding Challenge
 
-Welcome!
+## Prerequisites
 
-Use this file to write your README as if it was for a production service.
+1. Make sure you have these installed on your machine:
+	- [Docker]()
 
-Include these things:
 
-- brief description of the solution
-- reasoning behind your technical choices
-- trade-offs you might have made or anything you left out
-- describe what you did differently (if anything)
-- what you might have done differently if you were to spend additional time on this solution
+## Getting Started 
 
-Start here 👉 [Coding Challenge Guidelines](coding_challenge.md)
+Ensure you have the Prerequisites installed, then run `yarn start`. This will create a Docker Compose stack.
+
+Open `http://localhost:8000/ascii` in your browser to make an example request.
+
+## Development
+
+This project uses the following Docker images:
+	
+	- Node (includes NPM/Yarn)
+	- Redis
+	- Portainer (used to manage running Docker containers/images/stacks, dev-only)
+

@@ -8,7 +8,7 @@ const { scaleLinear } = require('d3-scale');
 const app = express();
 
 // init redis; how to use: https://github.com/luin/ioredis#basic-usage
-// const redis = new Redis();
+const redis = new Redis(process.env.REDIS_URL);
 
 const isSet = require('./validators').isSet;
 const isValidDate = require('./validators').isValidDate;

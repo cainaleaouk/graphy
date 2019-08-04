@@ -35,18 +35,18 @@ export function getGraph(data: Record<string, any>, priceType: string) {
   for (let col = 0; col < prices.length; col++) {
     const cPrice = Number(prices[col]).toFixed(2);
 
-    graphData[col] = [cPrice];
-    for (let row = 0; row < dates.length; row++) {
-      if (dates[row] === daysByPrice[cPrice]) {
-        graphData[col].push(' X');
-        continue;
-      }
-      graphData[col].push(' -');
-      // Adds the day to the last row (leave first index empty for indentation)
-      graphData[prices.length][row + 1] = getDay(dates[row]);
-    }
-    // Adds extra empty row for table styling
-    graphData[col][dates.length + 1] = '';
+		graphData[col] = [cPrice];
+		for (let row = 0; row < dates.length; row++) {
+			if (dates[row] === daysByPrice[prices[col]]) {
+				graphData[col].push(' X');
+				continue;
+			}
+			graphData[col].push(' -');
+			// Adds the day to the last row (leave first index empty for indentation)
+			graphData[prices.length][row+1] = getDay(dates[row]);
+		}
+		// Adds extra empty row for table styling
+		graphData[col][dates.length+1] = '';
 
     graphData[col] = graphData[col].join(' |');
   }
@@ -57,5 +57,8 @@ export function getGraph(data: Record<string, any>, priceType: string) {
 
   graphData[prices.length] = graphData[prices.length].join(' |');
 
-  return graphData;
+	// Turn the graph array into string
+	const asciiGraph: string = graphData.join('\r\n');
+
+	return asciiGraph;
 }

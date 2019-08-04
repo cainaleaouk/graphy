@@ -3,7 +3,7 @@ import 'isomorphic-fetch';
 import express from 'express';
 import portfinder from 'portfinder';
 
-import { PriceTypes, Query } from './types';
+import { Query } from './types';
 import { QueryValidatorMap, queryValidators } from './validators';
 import { Request, Response } from 'express-serve-static-core';
 
@@ -27,50 +27,49 @@ const retrieveData = withCache(stocksApi);
  * x(-80); // 1
  */
 
-// do your magic here 👇
-app.get('/ascii', async (req: Request, res: Response) => {
-
-	console.log('HERE! GET ascii');
-
-	try {
-		const queryObj = getValidatedQuery(req.query);
-
-		const data = await retrieveData(queryObj);
-
-		res.send(getGraph(data, queryObj.price));
-	} catch (e) {
-		res.send(e);
-	}
-});
-
 function getValidatedQuery(query: Partial<Query>): Query {
-	let validatedQuery = new Query();
+  let validatedQuery = new Query();
 
-	const keys = Object.keys(query) as (keyof QueryValidatorMap)[];
+  const keys = Object.keys(query) as (keyof QueryValidatorMap)[];
 
-  keys.forEach((queryKey) => {
-		const queryValue = query[queryKey];
+  keys.forEach((queryKey: keyof QueryValidatorMap) => {
+    const queryValue = query[queryKey];
 
-		// check if all required keys are in the queryParams
-		if (!queryValue) {
-			throw (`Query param key (${queryKey}) is missing in the request`);
-		}
+    // check if all required keys are in the queryParams
+    if (!queryValue) {
+      throw `Query param key (${queryKey}) is missing in the request`;
+    }
 
     const validator = queryValidators[queryKey];
 
-		// check if all the values passed in the params are valid
-		if (validator && !validator(queryValue)) {
-			throw (`Query value for (${queryKey}) is not in the correct format`);
-		}
-
-		if (query[queryKey]) {
-		  validatedQuery[queryKey] = (query as Query)[queryKey] as any;
+    // check if all the values passed in the params are valid
+    if (validator && !validator(queryValue)) {
+      throw `Query value for (${queryKey}) is not in the correct format`;
     }
-	});
 
-	return Object.assign(validatedQuery, new Query());
+    if (query[queryKey]) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      validatedQuery[queryKey] = (query as Query)[queryKey] as any;
+    }
+  });
+
+  return Object.assign(validatedQuery, new Query());
 }
 
+// do your magic here 👇
+app.get('/ascii', async (req: Request, res: Response) => {
+  console.log('HERE! GET ascii');
+
+  try {
+    const queryObj = getValidatedQuery(req.query);
+
+    const data = await retrieveData(queryObj);
+
+    res.send(getGraph(data, queryObj.price));
+  } catch (e) {
+    res.send(e);
+  }
+});
 
 // find an open port
 portfinder.getPort((err: Error | undefined, port: number) => {

@@ -13,3 +13,6 @@ export class Query {
 
   public price: PriceTypes = PriceTypes.CLOSE;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FetcherFunction = (query: Query) => Promise<any>;

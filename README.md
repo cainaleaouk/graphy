@@ -41,3 +41,4 @@ Options:
 	- Integration tests
 	- Multiple graph backends
 	- Validation (use [Yup](https://github.com/jquense/yup))
+	- Remove `any` from types

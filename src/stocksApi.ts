@@ -3,13 +3,7 @@ import { Query } from './types';
 const URL = 'https://stock-data.graphy.now.sh';
 
 function getQueryStr(query: Query) {
-  let queryStr = '';
-
-  Object.keys(query).forEach((key: string) => {
-    queryStr += `${key}=${query[key]}&`;
-  });
-
-  return queryStr;
+  return Object.keys(query).map((key:string) => `${key}=${query[key]}`).join('&');
 }
 
 export async function stocksApi(query: Query) {
